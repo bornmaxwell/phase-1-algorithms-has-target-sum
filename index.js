@@ -1,22 +1,50 @@
+// index.js
+
 function hasTargetSum(array, target) {
-  // Write your algorithm here
+  // Create a set to store numbers we have seen
+  const seenNumbers = new Set();
+
+  // Loop through each number in the array
+  for (let number of array) {
+    // Calculate the complement
+    const complement = target - number;
+
+    // Check if the complement is already in the set
+    if (seenNumbers.has(complement)) {
+      return true;
+    }
+
+    // Add the current number to the set
+    seenNumbers.add(number);
+  }
+
+  // If no pair is found, return false
+  return false;
 }
 
-/* 
-  Write the Big O time complexity of your function here
-*/
+// Export the function for testing
+module.exports = hasTargetSum;
 
 /* 
-  Add your pseudocode here
+  Pseudocode:
+  1. Initialize an empty set to keep track of seen numbers.
+  2. Iterate through the array:
+      - Compute the complement (target - current number).
+      - If the complement exists in the set, return true.
+      - Otherwise, add the current number to the set.
+  3. Return false if no pair is found after the loop.
 */
 
-/*
-  Add written explanation of your solution here
+/* 
+  Written Explanation:
+  This function uses a set to store numbers as we iterate through the array. 
+  For each number, we calculate its complement (the number needed to reach the target). 
+  If the complement exists in the set, we return true. If not, we add the current number to the set. 
+  This approach ensures we only loop through the array once, making it efficient.
 */
 
-// You can run `node index.js` to view these console logs
+// Test cases
 if (require.main === module) {
-  // add your own custom tests in here
   console.log("Expecting: true");
   console.log("=>", hasTargetSum([3, 8, 12, 4, 11, 7], 10));
 
@@ -29,6 +57,24 @@ if (require.main === module) {
 
   console.log("Expecting: false");
   console.log("=>", hasTargetSum([1, 2, 5], 4));
-}
 
-module.exports = hasTargetSum;
+  console.log("");
+
+  console.log("Expecting: true");
+  console.log("=>", hasTargetSum([-7, 10, 4, 8], 3));
+
+  console.log("");
+
+  console.log("Expecting: true");
+  console.log("=>", hasTargetSum([1, 2, 3, 4], 5));
+
+  console.log("");
+
+  console.log("Expecting: true");
+  console.log("=>", hasTargetSum([2, 2, 3, 3], 4));
+
+  console.log("");
+
+  console.log("Expecting: false");
+  console.log("=>", hasTargetSum([4], 4));
+}
